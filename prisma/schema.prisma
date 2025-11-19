@@ -1,0 +1,29 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // <-- ICI
+  url      = env("DATABASE_URL")
+}
+
+model Alert {
+  id        String   @id @default(cuid())
+  symbol    String
+  target    Float
+  email     String
+  direction String   // Nouveau champ : "UP" ou "DOWN"
+  createdAt DateTime @default(now())
+}
+
+// Ajoute ceci à la suite de ton modèle Alert existant
+
+model Asset {
+  id          String   @id @default(cuid())
+  symbol      String   // ex: BTC
+  name        String   // ex: Bitcoin
+  quantity    Float    // ex: 0.5
+  buyPrice    Float    // ex: 20000 (Prix d'achat unitaire)
+  createdAt   DateTime @default(now())
+}
